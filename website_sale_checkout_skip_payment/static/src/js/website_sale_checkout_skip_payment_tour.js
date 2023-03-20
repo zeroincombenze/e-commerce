@@ -15,19 +15,17 @@ odoo.define("website_sale_checkout_skip_payment.tour", function (require) {
             trigger: "a:contains('Add to Cart')",
         },
         {
-            trigger: ".btn-primary:contains('Confirm')",
+            trigger: ".btn-primary:contains('Process Checkout')",
         },
         {
-            trigger: ".btn:contains('Confirm')",
-            extra_trigger: "b:contains('Billing & Shipping:')",
+            trigger: ".btn:contains('Confirm Order')",
         },
         {
             trigger: "a[href='/shop']",
             extra_trigger: "h2:contains('Thank you for your order')",
         },
     ];
-    tour.register(
-        "website_sale_checkout_skip_payment",
+    tour.register("website_sale_checkout_skip_payment",
         {
             url: "/shop",
             test: true,

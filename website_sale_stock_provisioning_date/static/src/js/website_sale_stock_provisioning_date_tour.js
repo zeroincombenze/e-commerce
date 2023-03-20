@@ -22,12 +22,10 @@ odoo.define("website_sale_stock_provisioning_date.tour", function (require) {
         },
         {
             trigger: "a#add_to_cart",
-            extra_trigger:
-                ".availability_messages:has(span:contains('Next provisioning date:'))",
+            extra_trigger: ".availability_messages:has(span:contains('Next provisioning date:'))",
         },
     ];
-    tour.register(
-        "website_sale_stock_provisioning_date",
+    tour.register("website_sale_stock_provisioning_date",
         {
             url: "/shop",
             test: true,

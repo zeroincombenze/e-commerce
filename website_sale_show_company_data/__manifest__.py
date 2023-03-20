@@ -3,10 +3,11 @@
 {
     "name": "Website Sale Show Company Data",
     "summary": "Show commercial partner data if any",
-    "version": "14.0.1.0.0",
+    "version": "12.0.1.1.0",
     "category": "E-Commerce",
     "website": "https://github.com/OCA/e-commerce",
-    "author": "Tecnativa, Odoo Community Association (OCA)",
+    "author": "Tecnativa, "
+              "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

@@ -14,23 +14,20 @@ Require accepting legal terms to checkout
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fe--commerce-lightgray.png?logo=github
-    :target: https://github.com/OCA/e-commerce/tree/14.0/website_sale_require_legal
+    :target: https://github.com/OCA/e-commerce/tree/12.0/website_sale_require_legal
     :alt: OCA/e-commerce
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/e-commerce-14-0/e-commerce-14-0-website_sale_require_legal
+    :target: https://translation.odoo-community.org/projects/e-commerce-12-0/e-commerce-12-0-website_sale_require_legal
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/113/14.0
+    :target: https://runbot.odoo-community.org/runbot/113/12.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module extends your e-commerce legal compliance options:
-
-#. Require accepting legal terms before submitting a new address.
-#. Log a note in the partner when such terms are accepted.
-#. Log a note in the sale order when terms are accepted before payment
-   (done for every online payment, it is an upstream feature).
+This module was written to extend the functionality of your website shop to
+support forcing the user to accept your legal advice, terms of use and privacy
+policy, and allow you to comply with some countries' laws.
 
 **Table of contents**
 
@@ -42,34 +39,14 @@ Installation
 
 To install this module, you need to:
 
-* Install ``website_legal_page`` from repository `OCA/website <https://github.com/OCA/website>`_.
+* Install repository `OCA/website <https://github.com/OCA/website>`_.
 
 Configuration
 =============
 
 To configure this module, you need to:
 
-#. Install it.
-
-#. Set up `your legal pages </legal>`__.
-
-#. Go to your e-commerce and make a sample checkout.
-
-#. Visit `/shop/address </shop/address>`__ and enable *Customize > Require
-   Legal Terms Acceptance*.
-
-   .. figure:: https://raw.githubusercontent.com/OCA/e-commerce/14.0/website_sale_require_legal/static/description/address-enable.png
-
-   This will require acceptance before recording a new address, and log visitor's
-   acceptance.
-
-#. Visit `/shop/payment </shop/payment>`__ and enable *Customize > Accept Terms
-   & Conditions* (upstream Odoo feature).
-
-   .. figure:: https://raw.githubusercontent.com/OCA/e-commerce/14.0/website_sale_require_legal/static/description/payment-enable.png
-
-   This will require acceptance before paying the sale order, and log visitor's
-   acceptance.
+* Set up your legal pages.
 
 Usage
 =====
@@ -84,11 +61,8 @@ Known issues / Roadmap
 * Shopping terms and conditions are accepted only on user registration or
   address edition. So if those terms change after the user signed up, a
   notification should be made. An implicit acceptance could be printed in the
-  payment screen to solve this. Maybe that could be a work to develop in
+  payment screen to solve this. Maybe that could be a work to develope in
   another module.
-* If you enable both acceptance views as explained in the configuration section,
-  first-time buyers will have to accept the legal terms between 2 and 3 times
-  to buy.
 
 Bug Tracker
 ===========
@@ -96,7 +70,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/e-commerce/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_require_legal%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/e-commerce/issues/new?body=module:%20website_sale_require_legal%0Aversion:%2012.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -113,11 +87,11 @@ Contributors
 
 * `Tecnativa <https://www.tecnativa.com>`_:
 
-    * Rafael Blasco
-    * Jairo Llopis
-    * Vicent Cubells
-    * David Vidal
-    * Ernesto Tejeda
+    * Rafael Blasco <rafael.blasco@tecnativa.com>
+    * Jairo Llopis <jairo.llopis@tecnativa.com>
+    * Vicent Cubells <vicent.cubells@tecnativa.com>
+    * David Vidal <david.vidal@tecnativa.com>
+    * Ernesto Tejeda <ernesto.tejeda87@gmail.com>
     * Cristina Martin R.
 
 Maintainers
@@ -133,6 +107,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/14.0/website_sale_require_legal>`_ project on GitHub.
+This module is part of the `OCA/e-commerce <https://github.com/OCA/e-commerce/tree/12.0/website_sale_require_legal>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

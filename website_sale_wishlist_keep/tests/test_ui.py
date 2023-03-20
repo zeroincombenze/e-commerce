@@ -14,8 +14,17 @@ class TestUi(HttpCase):
                 "type": "consu",
             }
         )
-        self.env.ref("website_sale_wishlist_keep.default_active_b2b_wish").active = True
+        self.env.ref('website_sale_wishlist_keep.default_active_b2b_wish').active = True
 
     def test_ui_wishlist(self):
         """Test frontend tour."""
-        self.start_tour("/shop", "website_sale_wishlist_keep", login="admin")
+        tour = (
+            "odoo.__DEBUG__.services['web_tour.tour']",
+            "website_sale_wishlist_keep",
+        )
+        self.browser_js(
+            url_path="/shop",
+            code="%s.run('%s')" % tour,
+            ready="%s.tours['%s'].ready" % tour,
+            login="admin"
+        )

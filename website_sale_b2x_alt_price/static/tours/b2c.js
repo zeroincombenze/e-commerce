@@ -4,9 +4,9 @@
 odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
     "use strict";
 
-    const tour = require("web_tour.tour");
-    const base = require("web_editor.base");
-    const tour_b2b = require("website_sale_b2x_alt_price.tour_b2b");
+    var tour = require("web_tour.tour");
+    var base = require("web_editor.base");
+    var tour_b2b = require("website_sale_b2x_alt_price.tour_b2b");
 
     /**
      * Test eCommerce in B2C mode.
@@ -59,8 +59,7 @@ odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
             },
             {
                 content: "select website_sale_b2x_alt_price discounted",
-                trigger:
-                    ".switcher_pricelist:containsExact('website_sale_b2x_alt_price discounted')",
+                trigger: ".switcher_pricelist:containsExact('website_sale_b2x_alt_price discounted')",
             },
             // Pen now has 10% discount
             {
@@ -96,8 +95,7 @@ odoo.define("website_sale_b2x_alt_price.tour_b2c", function (require) {
             // Change to "website_sale_b2x_alt_price public" pricelist; 10% discount disappears
             {
                 content: "select website_sale_b2x_alt_price public",
-                trigger:
-                    ".switcher_pricelist:containsExact('website_sale_b2x_alt_price public')",
+                trigger: ".switcher_pricelist:containsExact('website_sale_b2x_alt_price public')",
             },
             {
                 content: "select variant: a4 size",

@@ -4,24 +4,25 @@
 odoo.define("website_sale_tax_toggle.tax_toggle_button", function (require) {
     "use strict";
 
-    const sAnimation = require("website.content.snippets.animation");
+    var sAnimation = require("website.content.snippets.animation");
 
     sAnimation.registry.tax_toggle_button = sAnimation.Class.extend({
         selector: ".js_tax_toggle_management",
         events: {
-            "click .js_tax_toggle_btn": "_onPublishBtnClick",
+            'click .js_tax_toggle_btn': '_onPublishBtnClick',
         },
         _onPublishBtnClick: function (ev) {
             ev.preventDefault();
-            const $data = $(ev.currentTarget).parents(
-                ".js_tax_toggle_management:first"
-            );
+            var self = this;
+            var $data = $(ev.currentTarget).parents(".js_tax_toggle_management:first");
             this._rpc({
-                route: $data.data("controller"),
-            }).then(function (result) {
-                $data.find("input").prop("checked", result);
+                route: $data.data('controller'),
+            })
+            .done(function (result) {
+                $data.find('input').prop("checked", result);
                 window.location.reload();
             });
         },
     });
+
 });

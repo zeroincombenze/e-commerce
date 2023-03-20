@@ -1,4 +1,1 @@
-* `Tecnativa <https://www.tecnativa.com>`_:
-
-  * Jairo Llopis
-  * Víctor Martínez
+* Jairo Llopis (`Tecnativa <https://www.tecnativa.com/>`_)

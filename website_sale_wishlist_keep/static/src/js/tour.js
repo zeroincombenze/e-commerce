@@ -1,15 +1,15 @@
-/* Copyright 2021 Carlos Roca
+/* Copyright 2020 Carlos Roca
  * License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
 
 odoo.define("website_sale_wishlist_keep.tour", function (require) {
     "use strict";
 
-    const tour = require("web_tour.tour");
-    const base = require("web_editor.base");
+    var tour = require("web_tour.tour");
+    var base = require("web_editor.base");
 
-    const steps = [
+    var steps = [
         {
-            trigger: ".card-body:has(a:contains('Test Product')) .o_add_wishlist",
+            trigger: "section:has(a:contains('Test Product')) .o_add_wishlist",
         },
         {
             trigger: "a[href='/shop/wishlist']",
@@ -29,8 +29,7 @@ odoo.define("website_sale_wishlist_keep.tour", function (require) {
             extra_trigger: "span:contains('Process Checkout')",
         },
     ];
-    tour.register(
-        "website_sale_wishlist_keep",
+    tour.register("website_sale_wishlist_keep",
         {
             url: "/shop",
             test: true,

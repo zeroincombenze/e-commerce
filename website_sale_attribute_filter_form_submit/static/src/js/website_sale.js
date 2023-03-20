@@ -23,8 +23,7 @@ odoo.define("website_sale_attribute_filter_form_submit.website_sale", function (
          */
         _onChangeColorAttribute: function (ev) {
             var $parent = $(ev.target).closest(".js_attributes");
-            $parent
-                .find(".css_attribute_color")
+            $parent.find(".css_attribute_color")
                 .removeClass("active")
                 .filter(":has(input:checked)")
                 .addClass("active");

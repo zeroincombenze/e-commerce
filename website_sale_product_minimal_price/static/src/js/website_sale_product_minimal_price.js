@@ -1,84 +1,86 @@
-odoo.define("website_sale_product_minimal_price.shop_min_price", function (require) {
+odoo.define("website_sale_product_minimal_price.load", function (require) {
     "use strict";
+    var ajax = require("web.ajax");
+    var core = require("web.core");
+    var field_utils = require("web.field_utils");
+    var ProductConfiguratorMixin = require(
+        "website_sale_stock.ProductConfiguratorMixin");
+    var QWeb = core.qweb;
+    var load_xml = ajax.loadXML(
+        "/website_sale_product_minimal_price/static/src/xml/" +
+            "website_sale_product_minimal_price.xml",
+        QWeb
+    );
 
-    const publicWidget = require("web.public.widget");
-    const core = require("web.core");
-    const field_utils = require("web.field_utils");
-
-    publicWidget.registry.WebsiteSaleProductMinimalPrice = publicWidget.Widget.extend({
-        selector: "#products_grid",
-        xmlDependencies: [
-            "/website_sale_product_minimal_price/static/src/xml/website_sale_product_minimal_price.xml",
-        ],
-
-        start: function () {
-            return Promise.all([
-                this._super.apply(this, arguments),
-                this.render_price(),
-            ]);
-        },
-        render_price: function () {
-            const $products = $(".o_wsale_product_grid_wrapper");
-            const product_dic = {};
-            $products.each(function () {
-                product_dic[this.querySelector("a img").src.split("/")[6]] = this;
-            });
-            const product_ids = Object.keys(product_dic).map(Number);
-            return this._rpc({
-                route: "/sale/get_combination_info_minimal_price/",
-                params: {product_template_ids: product_ids},
-            }).then((products_min_price) => {
-                for (const product of products_min_price) {
-                    if (!product.distinct_prices) {
-                        continue;
-                    }
-                    $(product_dic[product.id])
-                        .find(".product_price")
-                        .prepend(
-                            $(
-                                core.qweb.render(
-                                    "website_sale_product_minimal_price.from_view"
-                                )
-                            ).get(0)
-                        );
-                    const $price = $(product_dic[product.id]).find(
-                        ".product_price span .oe_currency_value"
+    // Save original method
+    var _onChangeCombinationStock =
+        ProductConfiguratorMixin._onChangeCombinationStock;
+    ProductConfiguratorMixin._onChangeCombinationStock = function (
+        ev,
+        $parent,
+        combination
+    ) {
+        var self = this;
+        var args = arguments;
+        if (!this.isWebsite) {
+            return;
+        }
+        ajax.jsonRpc("/sale/get_combination_info_pricelist_atributes", "call", {
+            product_id: combination.product_id,
+            actual_qty: $(".quantity").val(),
+        }).then(function (unit_prices) {
+            $(".temporal").remove();
+            if (unit_prices.length > 0) {
+                load_xml.then(function () {
+                    var $form = $('form[action*="/shop/cart/update"]');
+                    $form.append('<hr class="temporal"/>');
+                    $form.append(
+                        QWeb.render(
+                            "website_sale_product_minimal_price.title",
+                            {
+                                uom: combination.uom_name,
+                            }
+                        )
                     );
-                    if ($price.length) {
-                        $price.replaceWith(
-                            $(
-                                core.qweb.render(
-                                    "website_sale_product_minimal_price.product_minimal_price",
-                                    {
-                                        price: this.widgetMonetary(product.price, {}),
-                                    }
-                                )
-                            ).get(0)
+                    // We define a limit of displayed columns as 4
+                    var limit_col = 4;
+                    var $div;
+                    for (var i in unit_prices) {
+                        if (unit_prices[i].price === 0) {
+                            continue;
+                        }
+                        if (i % limit_col === 0) {
+                            var id = i/limit_col;
+                            var first = '<div id="row_';
+                            var end = '" class="row temporal"></div>';
+                            $form.append(
+                                first + id + end);
+                            $div = $('#row_' + id);
+                        }
+                        var monetary_u = field_utils.format.monetary(
+                            unit_prices[i].price,
+                            {},
+                            {currency: unit_prices[i].currency}
                         );
-                    } else {
-                        let price = this.widgetMonetary(product.price, {
-                            currency: product.currency,
-                        });
-                        price = price.replace("&nbsp;", " ");
-                        $(product_dic[product.id])
-                            .find(".product_price")
-                            .append(
-                                $(
-                                    core.qweb.render(
-                                        "website_sale_product_minimal_price.product_minimal_price",
-                                        {
-                                            price: price,
-                                        }
-                                    )
-                                ).get(0)
-                            );
+                        monetary_u = monetary_u.replace("&nbsp;", " ");
+                        $div.append(
+                            QWeb.render(
+                                "website_sale_product_minimal_price.pricelist",
+                                {
+                                    quantity: unit_prices[i].min_qty,
+                                    price: monetary_u,
+                                }
+                            )
+                        );
                     }
-                }
-                return products_min_price;
-            });
-        },
-        widgetMonetary: function (amount, format_options) {
-            return field_utils.format.monetary(amount, {}, format_options);
-        },
-    });
+                    $div = $('div[id*="row_"]');
+                    for (i = 0; i < $div.length - 1; i++) {
+                        $($div[i]).addClass('border-bottom');
+                    }
+                });
+            }
+            _onChangeCombinationStock.apply(self, args);
+        });
+    };
+    return ProductConfiguratorMixin;
 });

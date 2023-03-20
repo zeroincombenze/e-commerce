@@ -2,7 +2,6 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 
 from odoo import api, fields, models
-
 from odoo.addons.website.models import ir_http
 
 
@@ -26,12 +25,6 @@ class ProductTemplate(models.Model):
             # Only use public attachments
             ("public", "=", True),
             # Exclude Odoo asset files to avoid confusing the user
-            "!",
-            ("name", "=ilike", "%.assets%.js"),
-            "!",
-            ("name", "=ilike", "%.assets%.css"),
-            "!",
-            ("name", "=ilike", "web_editor%"),
             "!",
             ("name", "=ilike", "/web/content/%.assets%.js"),
             "!",
